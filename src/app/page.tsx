@@ -1,95 +1,73 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import type { NextPage } from "next";
+import Box from "@mui/material/Box";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import FormHelperText from "@mui/material/FormHelperText";
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Box
+      width="100vw"
+      height="100vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <CardContent
+        sx={{
+          width: "350px",
+          border: "1px solid #e8e8e8",
+          borderRadius: "10px",
+          padding: "40px 30px",
+        }}
+      >
+        <form>
+          <Typography
+            variant="h5"
+            color="text.secondary"
+            textAlign="center"
+            gutterBottom
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+            <strong>Login</strong>
+          </Typography>
+          <br />
+          <FormControl sx={{ textAlign: "left", width: "100%" }}>
+            <InputLabel htmlFor="my-input-email">Username</InputLabel>
+            <Input
+              id="my-input-email"
+              name="my-input-email"
+              aria-describedby="my-helper-text"
             />
-          </a>
-        </div>
-      </div>
+            <FormHelperText id="my-helper-text">
+              We'll never share your email.
+            </FormHelperText>
+          </FormControl>
+          <br />
+          <FormControl sx={{ textAlign: "left", width: "100%" }}>
+            <InputLabel htmlFor="my-input-password">Password</InputLabel>
+            <Input
+              id="my-input-password"
+              name="my-input-password"
+              type="password"
+              aria-describedby="my-helper-text"
+            />
+          </FormControl>
+          <br />
+          <br />
+          <br />
+          <Box textAlign="center">
+            <Button type="submit" variant="contained" size="large">
+              Login
+            </Button>
+          </Box>
+        </form>
+      </CardContent>
+    </Box>
+  );
+};
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default Home;

@@ -1,4 +1,6 @@
-import * as React from "react";
+"use client";
+
+import { useCallback } from "react";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import MenuList from "@mui/material/MenuList";
@@ -8,7 +10,23 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ContentPaste from "@mui/icons-material/ContentPaste";
 import Link from "next/link";
 
-export default function Menu() {
+const Menu = () => {
+  const logoutHandler = useCallback(async (e) => {
+    e.preventDefault();
+    const doLogout = confirm("Are you sure!");
+    if (doLogout) {
+      const request = await fetch("/api/logout", {
+        method: "post",
+      });
+      const response = await request.json();
+      if (response.error) {
+        alert(response.error);
+      } else {
+        location.href = "/";
+      }
+    }
+  }, []);
+
   return (
     <Paper sx={{ width: 320, maxWidth: "100%" }}>
       <MenuList sx={{ height: "100vh", borderRadius: 0 }}>
@@ -33,9 +51,15 @@ export default function Menu() {
           {/* <ListItemIcon>
             <Cloud fontSize="small" />
           </ListItemIcon> */}
-          <ListItemText>Logout</ListItemText>
+          <ListItemText>
+            <a href="#" onClick={logoutHandler}>
+              Logout
+            </a>
+          </ListItemText>
         </MenuItem>
       </MenuList>
     </Paper>
   );
-}
+};
+
+export default Menu;

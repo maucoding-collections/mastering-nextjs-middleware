@@ -1,3 +1,5 @@
+"use client";
+
 import type { NextPage } from "next";
 import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
@@ -7,8 +9,33 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import FormHelperText from "@mui/material/FormHelperText";
+import { useCallback, useState } from "react";
 
 const Home: NextPage = () => {
+  // initial state
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  // intial functions
+
+  // handling submit form
+  const submitHandler = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const request = await fetch("/api/login", {
+        method: "post",
+        body: JSON.stringify({ username, password }),
+      });
+      const response = await request.json();
+      if (response.error) {
+        return alert(response.error);
+      }
+
+      return (location.href = "/dashboard/user");
+    },
+    [username, password]
+  );
+
   return (
     <Box
       width="100vw"
@@ -25,7 +52,7 @@ const Home: NextPage = () => {
           padding: "40px 30px",
         }}
       >
-        <form>
+        <form onSubmit={submitHandler} action="#" method="post">
           <Typography
             variant="h5"
             color="text.secondary"
@@ -41,6 +68,8 @@ const Home: NextPage = () => {
               id="my-input-email"
               name="my-input-email"
               aria-describedby="my-helper-text"
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
             />
             <FormHelperText id="my-helper-text">
               We'll never share your email.
@@ -54,6 +83,8 @@ const Home: NextPage = () => {
               name="my-input-password"
               type="password"
               aria-describedby="my-helper-text"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
           </FormControl>
           <br />
